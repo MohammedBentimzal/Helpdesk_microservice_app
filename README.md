@@ -1,5 +1,5 @@
 # Helpdesk: microservice demo app for a DevOps project
-
+if you see that git diff works
 A small ticketing system: people report problems, IT agents resolve them, everyone gets notified.
 It is built to be the **subject** of a DevOps project (Docker, CI/CD, Kubernetes, GitOps, monitoring).
 The app is intentionally simple; the interesting work is what you build around it.

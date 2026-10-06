@@ -1,0 +1,43 @@
+# Infrastructure only: the three data services the app needs.
+# The application services run directly on your machine with Node.js (npm run dev).
+# Containerizing the services themselves is part of the DevOps work (Week 1 of the blueprint).
+name: helpdesk-infra
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-helpdesk}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-helpdesk_pw}
+      POSTGRES_DB: ${POSTGRES_DB:-helpdesk_tickets}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_pw}
+      MYSQL_USER: ${MYSQL_USER:-helpdesk}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-helpdesk_pw}
+      MYSQL_DATABASE: helpdesk_auth
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+      - ./db/mysql-init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:
+  mysqldata:

@@ -1,0 +1,21 @@
+{
+  "name": "notification-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Helpdesk notification worker: consumes ticket events from a Redis stream, stores notifications in MySQL",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --env-file=../../.env --watch src/index.js",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "express": "^4.21.2",
+    "ioredis": "^5.4.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.11.5",
+    "pino": "^9.5.0",
+    "prom-client": "^15.1.3"
+  }
+}

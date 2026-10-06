@@ -1,0 +1,24 @@
+{
+  "name": "helpdesk-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Helpdesk: a small 4-service microservice app used as the subject of a DevOps project",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "install:all": "npm install && npm --prefix services/auth-service install && npm --prefix services/ticket-service install && npm --prefix services/notification-service install && npm --prefix services/frontend install",
+    "infra:up": "docker compose -f docker-compose.infra.yml up -d --wait",
+    "infra:down": "docker compose -f docker-compose.infra.yml down",
+    "infra:reset": "docker compose -f docker-compose.infra.yml down -v",
+    "infra:logs": "docker compose -f docker-compose.infra.yml logs -f",
+    "dev": "concurrently -n auth,tickets,notify,web -c blue,green,yellow,magenta \"npm --prefix services/auth-service run dev\" \"npm --prefix services/ticket-service run dev\" \"npm --prefix services/notification-service run dev\" \"npm --prefix services/frontend run dev\"",
+    "test": "npm --prefix services/auth-service test && npm --prefix services/ticket-service test && npm --prefix services/notification-service test",
+    "build:frontend": "npm --prefix services/frontend run build",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "engines": {
+    "node": ">=20.6"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

@@ -193,7 +193,7 @@ to `debug` to also log probe and metrics requests.
 
 ### Failure injection (chaos)
 
-Set `CHAOS_MODE` in `.env` (or in a container's environment) for any service:
+ `CHAOS_MODE` in `.env` (or in a container's environment) for any service:
 
 | Mode | Effect | Drill it supports |
 |---|---|---|

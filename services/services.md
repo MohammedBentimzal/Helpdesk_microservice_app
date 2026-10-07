@@ -1,1 +1,0 @@
-send him 2 3 yers dagestan and forget 
